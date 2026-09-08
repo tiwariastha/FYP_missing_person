@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+dist/
+*.local
+
+# Uploads (keep directory structure, ignore uploaded files)
+uploads/cases/*
+uploads/sightings/*
+uploads/temporary/*
+!uploads/**/.gitkeep
+
+# Backend uploads
+backend/uploads/*
+!backend/uploads/**/.gitkeep
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# AI models and caches
+ai/models/
+ai/.cache/
+*.onnx
+*.pth
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
