@@ -27,6 +27,7 @@ class FaceMatcher:
         self.app = FaceAnalysis(
             name="buffalo_s",
             providers=["CPUExecutionProvider"],
+            allowed_modules=["detection", "recognition"],
         )
 
         self.app.prepare(
