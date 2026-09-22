@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from datetime import datetime
 
 from sqlmodel import Session, SQLModel, create_engine
 from sqlalchemy import text
@@ -43,7 +44,7 @@ def init_db() -> None:
             )
             connection.commit()
 
-                # Ensure demo admin account exists
+        # Ensure demo admin account exists
         result = connection.execute(
             text(
                 "SELECT id FROM user "
@@ -59,17 +60,19 @@ def init_db() -> None:
             connection.execute(
                 text(
                     "INSERT INTO user "
-                    "(name, email, password_hash, role) "
-                    "VALUES (:name, :email, :password_hash, :role)"
+                    "(name, email, password_hash, role, created_at) "
+                    "VALUES (:name, :email, :password_hash, :role, :created_at)"
                 ),
                 {
                     "name": "Admin",
                     "email": "admin@example.com",
                     "password_hash": password_hash,
                     "role": "admin",
+                    "created_at": datetime.utcnow(),
                 },
             )
             connection.commit()
+
         else:
             connection.execute(
                 text(
