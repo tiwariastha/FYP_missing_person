@@ -7,6 +7,7 @@ from app.database.config import DATABASE_DIR, DATABASE_URL
 from app.models.user import User  # noqa: F401
 from app.models.missing_person import MissingPerson  # noqa: F401
 from app.models.public_report import PublicReport  # noqa: F401
+from app.core.security import hash_password
 
 
 engine = create_engine(
@@ -42,15 +43,42 @@ def init_db() -> None:
             )
             connection.commit()
 
-        # Temporary: promote the initial demo account to admin
+                # Ensure demo admin account exists
         result = connection.execute(
             text(
-                "UPDATE user "
-                "SET role = 'admin' "
+                "SELECT id FROM user "
                 "WHERE email = 'admin@example.com'"
             )
         )
-        connection.commit()
+
+        existing_admin = result.fetchone()
+
+        if existing_admin is None:
+            password_hash = hash_password("Admin@123")
+
+            connection.execute(
+                text(
+                    "INSERT INTO user "
+                    "(name, email, password_hash, role) "
+                    "VALUES (:name, :email, :password_hash, :role)"
+                ),
+                {
+                    "name": "Admin",
+                    "email": "admin@example.com",
+                    "password_hash": password_hash,
+                    "role": "admin",
+                },
+            )
+            connection.commit()
+        else:
+            connection.execute(
+                text(
+                    "UPDATE user "
+                    "SET role = 'admin' "
+                    "WHERE email = 'admin@example.com'"
+                )
+            )
+            connection.commit()
 
 
 def get_session() -> Generator[Session, None, None]:
