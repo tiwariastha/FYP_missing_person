@@ -25,7 +25,7 @@ class FaceMatcher:
 
     def __init__(self):
         self.app = FaceAnalysis(
-            name="buffalo_s",
+            name="buffalo_sc",
             providers=["CPUExecutionProvider"],
             allowed_modules=["detection", "recognition"],
         )
