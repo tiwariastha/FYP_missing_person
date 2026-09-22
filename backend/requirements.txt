@@ -33,3 +33,4 @@ watchfiles==1.2.0
 websockets==17.1
 python-multipart
 opencv-python-headless
+insightface
