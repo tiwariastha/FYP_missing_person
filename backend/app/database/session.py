@@ -42,6 +42,16 @@ def init_db() -> None:
             )
             connection.commit()
 
+        # Temporary: promote the initial demo account to admin
+        result = connection.execute(
+            text(
+                "UPDATE user "
+                "SET role = 'admin' "
+                "WHERE email = 'admin@example.com'"
+            )
+        )
+        connection.commit()
+
 
 def get_session() -> Generator[Session, None, None]:
     with Session(engine) as session:
