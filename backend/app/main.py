@@ -34,6 +34,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "https://fyp-missing-person.vercel.app",
+        "https://fyp-missing-person-gxtvp8uv8-astha76.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
